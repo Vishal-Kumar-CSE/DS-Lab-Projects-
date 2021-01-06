@@ -176,19 +176,28 @@ void delete_beg ()
 
 void delete_end ()
 {
-  if (head == NULL)
+    if(head == NULL)
+    {
+        printf("\nlist is empty");
+    }
+    else if(head -> next == NULL)
+    {
+        head = NULL;
+        free(head);
+        printf("\nOnly node of the list deleted ...\n");
+    }
+
+    else
+    {
+        ptr = head;
+        while(ptr->next != NULL)
         {
-    	printf ("The list is empty!!");
-         }
-  else
-      {
-  	ptr = head;
-      	while (ptr->next->next != NULL)
-	ptr = ptr->next;
-      	new = ptr->next;
-      	ptr->next = NULL;
-      	printf ("Deleted element is %d", new->data);
-      	free (new);
+            new = ptr;
+            ptr = ptr ->next;
+        }
+        new->next = NULL;
+        free(ptr);
+        printf("\nDeleted Node from the last ...\n");
     }
 }
 
