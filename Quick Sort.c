@@ -1,64 +1,46 @@
-    #include <stdio.h>
-    int partition(int a[], int beg, int end);
-    void quickSort(int a[], int beg, int end);
-    void main()
-    {
-        int i,n;
-        printf("\nEnter the size of array");
-        scanf("%d", &n);
-        int arr[n];
-        for(i=0;i<n;i++)
-        scanf(" %d", &arr[i]);
-        quickSort(arr, 0, n-1);
-        printf("\n The sorted array is: \n");
-        for(i=0;i<n;i++)
-        printf(" %d\t", arr[i]);
-    }
-    int partition(int a[], int beg, int end)
-    {
+#include<stdio.h>
 
-        int left, right, temp, loc, flag;
-        loc = left = beg;
-        right = end;
-        flag = 0;
-        while(flag != 1)
-        {
-            while((a[loc] <= a[right]) && (loc!=right))
-            right--;
-            if(loc==right)
-            flag =1;
-            else if(a[loc]>a[right])
-            {
-                temp = a[loc];
-                a[loc] = a[right];
-                a[right] = temp;
-                loc = right;
-            }
-            if(flag!=1)
-            {
-                while((a[loc] >= a[left]) && (loc!=left))
-                left++;
-                if(loc==left)
-                flag =1;
-                else if(a[loc] <a[left])
-                {
-                    temp = a[loc];
-                    a[loc] = a[left];
-                    a[left] = temp;
-                    loc = left;
-                }
-            }
-        }
-        return loc;
-    }
-    void quickSort(int a[], int beg, int end)
-    {
+quickSort(int a[], int l, int r){
 
-        int loc;
-        if(beg<end)
-        {
-            loc = partition(a, beg, end);
-            quickSort(a, beg, loc-1);
-            quickSort(a, loc+1, end);
-        }
+if(l<r){
+    int pi=partition(a,l,r);
+    quickSort(a,l, pi-1);
+    quickSort(a,pi+1,r);
+}
+}
+
+int partition(int a[], int l, int r){
+int pivot=a[r];
+int i=l-1;
+for(int j=l; j<r; j++){
+    if(a[j]<pivot){
+
+        i++;
+        swap(a,i,j);
     }
+}
+swap(a,i+1,r);
+return i+1;
+}
+void swap(int a[], int i, int j){
+int temp=a[i];
+a[i]=a[j];
+a[j]=temp;
+}
+
+int main(){
+
+int n;
+printf("\nEnter total no. of Item");
+scanf("%d", &n);
+int a[n];
+printf("\nEnter values..\n");
+for(int i=0; i<n; i++)
+    scanf("%d", &a[i]);
+
+    quickSort(a,0,n-1);
+printf("\nAfter Quick Sort values are..\n");
+    for(int i=0; i<n; i++)
+    printf("%d\n", a[i]);
+
+}
